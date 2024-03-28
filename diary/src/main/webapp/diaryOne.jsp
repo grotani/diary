@@ -125,7 +125,7 @@
 	%>
 	<div>
 		<a href="/diary/updateDiaryForm.jsp?diaryDate=<%=diaryDate %>"  class="btn btn-outline-warning"> 일기수정</a>
-		<a href="/diary/deleteDiaryForm.jsp?diaryDate=<%=diaryDate %>&title=<%=rs2.getString("title") %>"  class="btn btn-outline-warning"> 일기삭제</a>
+		<a href="/diary/deleteDiaryForm.jsp?diaryDate=<%=diaryDate %>&title=<%=rs2.getString("title") %>" class="btn btn-outline-warning"> 일기삭제</a>
 	</div>
 </div>
 </body>

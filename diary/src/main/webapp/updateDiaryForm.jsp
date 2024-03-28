@@ -4,7 +4,7 @@
 	String diaryDate = request.getParameter("diaryDate");
 	System.out.println(diaryDate + "글수정");
 	
-	String sql = "SELECT diary_date diaryDate, title, weather, content, update_date updatedate, create_date createdate FROM diary WHERE diary_date = ?";
+	String sql = "SELECT diary_date diaryDate,feeling, title, weather, content, update_date updatedate, create_date createdate FROM diary WHERE diary_date = ?";
 	Class.forName("org.mariadb.jdbc.Driver");
 	Connection conn = null;
 	PreparedStatement stmt = null;
@@ -53,6 +53,10 @@
 		<tr>
 			<td>day</td>
 			<td><input type="text" name="diaryDate" value='<%=rs.getString("diaryDate")%>' readonly="readonly"></td>
+		</tr>
+		<tr>
+			<td>feeling</td>
+			<td><input type="text" name="feeling" value='<%=rs.getString("feeling")%>' readonly="readonly"></td>
 		</tr>
 		<tr>
 			<td>title</td>

@@ -147,7 +147,11 @@
 	
 	<!-- 다이어리 달력 보여주기 -->
 	<div class="container p-5 my-5 border" style="text-align: center;">
-	
+	<div class= "d-flex justify-content-end">
+		<a href="/diary/statsLunch.jsp"style="color:#FFE400" class="btn btn-outline-warning">메뉴통계</a>
+		<a href="/diary/lunchOne.jsp" style="color:#FFE400" class="btn btn-outline-warning ml-2">점심메뉴 투표</a>
+		
+	</div>
 		<h1 style="color:#74A16F; text-align: center;" ><%=dYear %>년 <%=dMonth+1 %>월 &#128197;</h1>
 	
 	<div>
