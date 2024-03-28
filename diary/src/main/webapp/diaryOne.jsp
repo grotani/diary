@@ -73,13 +73,14 @@
 		<!-- 수정하기 empList 참고 -->
 	<nav class="navbar navbar-expand-sm bg-light  navbar-light">
 			<div class="container-fluid">
+			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link " href="/crudtest/student/studentList.jsp">다이어리 보기</a>
+					<a class="nav-link " href="/diary/dairy.jsp">다이어리 보기</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link"  href= "/crudtest/emp/empList.jsp">게시판</a>
+					<a class="nav-link"  href= "/diary/diaryList.jsp">게시판</a>
 				</li>	
-	
+			</ul>
 
 	<!-- 메인내용 -->
 	<div class="container p-5 my-5 border" style="background-size:70%;  background-image: url(/diary/img/flower.jpg)">
