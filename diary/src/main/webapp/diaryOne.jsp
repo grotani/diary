@@ -96,6 +96,9 @@
 		  font-weight: 400;
 		  font-style: normal;
 		  }
+		  
+		a:link {color:#FF5E00; text-decoration: none;}
+		a:visited {color:#FF5E00;}	  
 	</style>
 </head>
 
@@ -113,7 +116,7 @@
 	</nav>
 	<!-- 메인내용 -->
 	<div class="container p-5 my-5 border" style="background-size:70%;  background-image: url(/diary/img/flower.jpg)">
-		<h1 class = "text-center">일기장 상세보기</h1>
+		<h1 class = "text-center" style="color:#FF5E00">일기장 상세보기</h1>
 	
 	<%
 		if(rs2.next()) { 
@@ -156,6 +159,40 @@
 		<a href="/diary/updateDiaryForm.jsp?diaryDate=<%=diaryDate %>"  class="btn btn-outline-warning"> 일기수정</a>
 		<a href="/diary/deleteDiaryForm.jsp?diaryDate=<%=diaryDate %>&title=<%=rs2.getString("title") %>" class="btn btn-outline-warning"> 일기삭제</a>
 	</div>
+	<!-- 댓글 추가기능 -->
+	<div>
+		<form method="post" action="/diary/addCommentAction.jsp">
+			<input type="hidden" name="diaryDate" value="<%=diaryDate%>">
+			<textarea class="rounded" rows="2" cols="50" name="memo"></textarea>	
+			<button type="submit" class="btn btn-outline-warning" style="color:#FF5E00">댓글입력</button>	
+		</form>
+	</div>
+	
+	<!-- 댓글 리스트 -->
+	<%
+		String sql3= "select comment_no commentNo, memo, create_date createDate from comment where diary_date=?";
+		PreparedStatement stmt3 = null;
+		ResultSet rs3 = null;
+		
+		stmt3= conn.prepareStatement(sql3);
+		stmt3.setString(1, diaryDate);
+		rs3= stmt3.executeQuery();
+		
+		
+	%>
+	<table class="table border">
+		<%
+			while (rs3.next())	{
+		%>
+			<tr>
+				<td><%=rs3.getString("memo") %></td>
+				<td><%=rs3.getString("createDate") %></td>
+				<td><a href='/diary/deleteComment.jsp?commentNo=<%=rs3.getInt("commentNo")%>&diaryDate=<%=diaryDate%>'>삭제</a></td>
+			</tr>
+		<% 		
+			}
+		%>
+	</table>
 </div>
 </body>
 </html>

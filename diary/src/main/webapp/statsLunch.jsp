@@ -76,7 +76,7 @@
 			</ul>
 	</nav>
 	
-	<h1>점심메뉴 통계</h1>
+	<h1  class = "text-center" style="color:#FF5E00">점심메뉴 통계</h1>
 	<%
 		double maxHeight = 500; 
 		double totalCnt = 0; // 
@@ -85,44 +85,44 @@
 		}
 		rs2.beforeFirst();
 	%>
-	<div>
+	<div  class = "text-center">
 		전체 투표수 :<%=(int)totalCnt %>
 	</div>
+	<div style="text-align: center;">
+		<table border="1" style="margin: auto;" >
+			<tr>
+				<%
+					String[] c = {"#FF0000","#FF5E00","#FFE400","#1DDB16","#0100FF"};
+					int i =0;
+					while (rs2.next()) {
+						int h =(int)(maxHeight*(rs2.getInt("cnt")/totalCnt));				
+				%>
+					<td style="vertical-align: bottom;">
+						<div style="height:<%=h %>px; 
+						 			background-color:<%=c[i] %>; 
+						 			text-align: center">
+							<%=rs2.getInt("cnt")%>
+						</div>
+					</td>
+				<% 		
+					i = i+1;
+					}
+				%>
+			</tr>
+			<tr>
+				<%
+					//커서의 위치를 다시 처음으로 
+					rs2.beforeFirst();	
+					while (rs2.next()) {
+				%>
+					<td><%=rs2.getString("menu")%></td>
+				<% 		
+					}
+				%>		
+			</tr>
+		</table>
 	
-	<table border="1">
-		<tr>
-			<%
-				String[] c = {"#FF0000","#FF5E00","#FFE400","#1DDB16","#0100FF"};
-				int i =0;
-				while (rs2.next()) {
-					int h =(int)(maxHeight*(rs2.getInt("cnt")/totalCnt));				
-			%>
-				<td style="vertical-align: bottom;">
-					<div style="height:<%=h %>px; 
-					 			background-color:<%=c[i] %>; 
-					 			text-align: center">
-						<%=rs2.getInt("cnt")%>
-					</div>
-				</td>
-			<% 		
-				i = i+1;
-				}
-			%>
-		</tr>
-		<tr>
-			<%
-				//커서의 위치를 다시 처음으로 
-				rs2.beforeFirst();	
-				while (rs2.next()) {
-			%>
-				<td><%=rs2.getString("menu")%></td>
-			<% 		
-				}
-			%>		
-		</tr>
-	</table>
-	
-	
+	</div>
 	
 	
 </body>

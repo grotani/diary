@@ -99,7 +99,7 @@
 	</style>
 </head>
 
-<body class="container  my-5 border single" style="background-size:100%;  background-image: url(/diary/img/adddiary.jpg)">
+<body class="container  my-5 border single">
 	<nav class="navbar navbar-expand-sm bg-light  navbar-light">
 			<div class="container-fluid">
 			<ul class="navbar-nav">
@@ -114,16 +114,16 @@
 	<hr>
 	checkDate : <%=checkDate %><br>
 	ck : <%=ck %>
-	
+	<div class="container p-5 my-5 border" style="background-size:70%;  background-image: url(/diary/img/flower.jpg)">
 	<h1 style="color:#FF5E00 ">일기쓰기 &#128221;</h1>
+	</div>
 	<form method="post" action="/diary/checkDateAction.jsp">
 		<div>
 			날짜 확인 : <input type="date" name="checkDate" value="<%=checkDate%>">
 			<span><%=msg %></span>
+		<button type="submit" class="btn btn-outline-warning">날짜가능 확인</button>
 		</div>
-		<div>
-			<button type="submit" class="btn btn-outline-warning">날짜가능 확인</button>
-		</div>
+		
 		<hr>
 	</form>
 	
@@ -142,7 +142,7 @@
 				}
 			%>
 		</div>
-		
+		<br>
 		<div>
 			기분 : 
 			<input type="radio" name="feeling" value="&#128512;">&#128512;
@@ -151,7 +151,7 @@
 			<input type="radio" name="feeling" value="&#128558;">&#128558;
 			<input type="radio" name="feeling" value="&#128557;">&#128557;
 		</div>
-		
+		<br>
 		<div>
 			제목 : <input class="rounded btn btn-outline-warning" type="text" name="title">
 		</div>

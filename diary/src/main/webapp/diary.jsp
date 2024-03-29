@@ -122,9 +122,17 @@
 </head>
 
 <body class="container single" >
-
-	<a href="/diary/diary.jsp">다이어리 모양으로 보기</a>
-	<a href="/diary/diaryList.jsp">게시판 모양으로 보기</a>
+	<nav class="navbar navbar-expand-sm bg-light  navbar-light">
+			<div class="container-fluid">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="/diary/diary.jsp">다이어리 보기</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link"  href="/diary/diaryList.jsp">게시판</a>
+				</li>	
+			</ul>
+	</nav>
 	
 	<div class="container p-5 my-5 border" style="background-size:70%;  background-image: url(/diary/img/flower.jpg)">
 		<h1 class = "text-center" style="color:#FFE400">일기장</h1>
@@ -132,18 +140,14 @@
 	<div class= "d-flex justify-content-end">
 		<a href="/diary/logout.jsp" style="color:#FFE400" class="btn btn-outline-warning ml-2">로그아웃</a>
 		<a href="/diary/addDiaryForm.jsp"style="color:#FFE400" class="btn btn-outline-warning">일기쓰기</a>
+		<a href="/diary/statsLunch.jsp"style="color:#FFE400" class="btn btn-outline-warning">메뉴통계</a>
+		<a href="/diary/lunchOne.jsp" style="color:#FFE400" class="btn btn-outline-warning ml-2">점심메뉴 투표</a>
 	</div>
 	
 	
 	<!-- 다이어리 달력 보여주기 -->
 	<div class="container p-5 my-5 border" style="text-align: center;">
-	<div class= "d-flex justify-content-end">
-		<a href="/diary/statsLunch.jsp"style="color:#FFE400" class="btn btn-outline-warning">메뉴통계</a>
-		<a href="/diary/lunchOne.jsp" style="color:#FFE400" class="btn btn-outline-warning ml-2">점심메뉴 투표</a>
-		
-	</div>
 		<h1 style="color:#74A16F; text-align: center;" ><%=dYear %>년 <%=dMonth+1 %>월 &#128197;</h1>
-	
 	<div>
 		<a href="./diary.jsp?targetYear=<%=dYear%>&targetMonth=<%=dMonth-1%>" class="m">이전달</a>
 		<a href="./diary.jsp?targetYear=<%=dYear%>&targetMonth=<%=dMonth+1%>" class="m">다음달</a>

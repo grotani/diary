@@ -56,11 +56,18 @@
 		</tr>
 		<tr>
 			<td>feeling</td>
-			<td><input type="text" name="feeling" value='<%=rs.getString("feeling")%>' readonly="readonly"></td>
+			<td><input type="text" value='<%=rs.getString("feeling")%>' readonly="readonly">
+				<input type="radio" name="feeling" value="&#128512;">&#128512;
+				<input type="radio" name="feeling" value="&#128545;">&#128545;
+				<input type="radio" name="feeling" value="&#128567;">&#128567;
+				<input type="radio" name="feeling" value="&#128558;">&#128558;
+				<input type="radio" name="feeling" value="&#128557;">&#128557;
+			</td>
 		</tr>
 		<tr>
 			<td>title</td>
 			<td><input type="text" name="title" value='<%=rs.getString("title")%>'></td>
+			
 		</tr>
 		<tr>
 			<td>weather</td>

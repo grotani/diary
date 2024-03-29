@@ -104,7 +104,9 @@
 	<%
 		if(rs2.next()) { 
 	%>
-	<h1>투표상세보기</h1>
+	<div class="container p-5 my-5 border" style="background-size:70%;  background-image: url(/diary/img/flower.jpg)">
+	<h1 style="color:#FF5E00">투표상세보기</h1>
+	</div>
 	<table class="table border">
 			<tr>
 				<td>lunchDate</td>
@@ -133,6 +135,7 @@
 	<%
 		} else {
 	%>
+	 
 		<h1>투표하기</h1>
 		
 		<form method="post" action="/diary/checkLunchAction.jsp">
@@ -179,7 +182,6 @@
 	<%		
 		}
 	%>	
-	
 	
 
 </body>

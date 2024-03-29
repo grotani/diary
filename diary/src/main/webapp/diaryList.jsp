@@ -163,7 +163,7 @@
 			<a class="page-link text-danger" href="/diary/diaryList.jsp?currentPage=1">처음페이지</a> 
 			</li>
 			<li class= "page-item">
-				<a class="page-link text-danger" href="/diary/diaryList.jsp?currentPage=<%=currentPage-1%>">이전페이지</a> 
+				<a class="page-link text-danger" href="/diary/diaryList.jsp?"<%=currentPage-1%>">이전페이지</a> 
 		</li>
 	<%		
 		} else {
@@ -172,7 +172,7 @@
 			<a class ="page-link text-danger" href="/diary/diaryList.jsp?currentPage=1">처음페이지</a>
 				</li>
 			<li class="page-item disabled">
-				<a class ="page-link text-danger" href="/diary/diaryList.jsp?currentPage=<%=currentPage-1%>">이전페이지</a>
+				<a class ="page-link text-danger" href="/diary/diaryList.jsp?"<%=currentPage-1%>">이전페이지</a>
 		</li>
 	<% 		
 		}
@@ -190,8 +190,7 @@
 	
 		</ul>
 	</nav>
-	<a href="/diary/diaryList.jsp?=currentPage=<%=currentPage-1%>">이전</a>
-	<a href="/diary/diaryList.jsp?=currentPage=<%=currentPage+1%>">다음</a>
+
 	
 	
 	
