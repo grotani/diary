@@ -61,6 +61,21 @@
 	System.out.println(stmt2+"상세보기");
 	rs2 = stmt2.executeQuery();
 	
+
+	// 페이지 카운팅 
+	/*String sql3 = "select count(diary_date) from diary";
+	PreparedStatement stmt3 = null;
+	ResultSet rs3 = null;
+	stmt3 = conn.prepareStatement(sql3);
+	rs3 = stmt3.executeQuery();
+	
+	int totalRow = 0;
+	if(rs3.next()) { 
+		totalRow = rs3.getInt("count(diary_date)");
+	}
+	System.out.println(totalRow+"<==토탈Row디버깅");
+	*/
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -85,7 +100,6 @@
 </head>
 
 <body class="container single"  style= "margin-top: 100px">	
-		<!-- 수정하기 empList 참고 -->
 	<nav class="navbar navbar-expand-sm bg-light  navbar-light">
 			<div class="container-fluid">
 			<ul class="navbar-nav">

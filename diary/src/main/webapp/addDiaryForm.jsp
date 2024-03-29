@@ -98,7 +98,20 @@
 	}
 	</style>
 </head>
+
 <body class="container  my-5 border single" style="background-size:100%;  background-image: url(/diary/img/adddiary.jpg)">
+	<nav class="navbar navbar-expand-sm bg-light  navbar-light">
+			<div class="container-fluid">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="/diary/diary.jsp">다이어리 보기</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link"  href="/diary/diaryList.jsp">게시판</a>
+				</li>	
+			</ul>
+	</nav>
+	<hr>
 	checkDate : <%=checkDate %><br>
 	ck : <%=ck %>
 	

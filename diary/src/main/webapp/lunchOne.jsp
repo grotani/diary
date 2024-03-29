@@ -21,7 +21,7 @@
 	
 	PreparedStatement stmt1 = null;
 	ResultSet rs1 = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary","root","java1234");
+	
 	stmt1 = conn.prepareStatement(sql1);
 	rs1 = stmt1.executeQuery();
 	
@@ -44,6 +44,7 @@
 	Connection conn = null;
 	PreparedStatement stmt2 = null;
 	ResultSet rs2 = null;
+	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary","root","java1234");
 	stmt2 = conn.prepareStatement(sql2);
 	rs2 = stmt2.executeQuery();
 	
@@ -72,14 +73,33 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
+	<!-- 폰트설정 -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
 	<!-- css -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  	
+  	<style>
+  	.single{
+	  font-family: "Single Day", cursive;
+	  font-weight: 400;
+	  font-style: normal;
+	}
+  	</style>
 </head>
-<body>
-	
-	
+<body class="container single">
+	<nav class="navbar navbar-expand-sm bg-light  navbar-light">
+			<div class="container-fluid">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="/diary/diary.jsp">다이어리 보기</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link"  href="/diary/diaryList.jsp">게시판</a>
+				</li>	
+			</ul>
+	</nav>
 	
 	<%
 		if(rs2.next()) { 
@@ -108,6 +128,7 @@
 		</table>	
 		<div>
 			<a href="/diary/deletelunch.jsp?lunchDate=<%=rs2.getString("lunchDate")%>" class="btn btn-outline-warning"> 삭제하기</a>
+			<a href="/diary/statsLunch.jsp?lunchDate=<%=rs2.getString("lunchDate")%>" class="btn btn-outline-warning"> 통계보기</a>
 		</div>
 	<%
 		} else {
@@ -125,9 +146,9 @@
 			</form>
 			
 		<form method="get" action="/diary/lunchAction.jsp">
-			<table>
+		<table class="table border">
 			<tr>
-				<td> date
+				<td> 날짜 :
 				<%
 					if(cv.equals("o")) {
 				%>
@@ -144,8 +165,7 @@
 				</tr>
 			
 			<tr>
-				<td>menu</td>
-				<td>
+				<td>메뉴 :
 					<input type="radio" name="menu" value="한식">한식
 					<input type="radio" name="menu" value="중식">중식
 					<input type="radio" name="menu" value="양식">양식

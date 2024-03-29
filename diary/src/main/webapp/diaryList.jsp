@@ -94,6 +94,7 @@
 	if(totalRow %rowPerPage != 0) {
 		lastPage = lastPage +1;
 	}
+	
 %>
 
 <!DOCTYPE html>
@@ -121,6 +122,14 @@
 	</style>
 </head>
 <body class="container single">
+	<nav class="navbar navbar-expand-sm bg-light  navbar-light">
+			<div class="container-fluid">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="/diary/diary.jsp">다이어리 보기</a>
+				</li>	
+			</ul>
+	</nav>
 	<div class="container p-5 my-5 border" style="background-size:70%;  background-image: url(/diary/img/flower.jpg)">
 		<h1 style="color:#FF5E00">일기 목록</h1>
 	</div>
@@ -144,9 +153,47 @@
 			}
 		%>
 	</table>
+	<!-- 페이징 버튼 만들기 -->
+	<nav aria-label="Page navigation example">
+		<ul class="pagination justify-content-center">
+	<%
+		if(currentPage >1) {
+	%>
+		<li class= "page-item">
+			<a class="page-link text-danger" href="/diary/diaryList.jsp?currentPage=1">처음페이지</a> 
+			</li>
+			<li class= "page-item">
+				<a class="page-link text-danger" href="/diary/diaryList.jsp?currentPage=<%=currentPage-1%>">이전페이지</a> 
+		</li>
+	<%		
+		} else {
+	%>
+		<li class="page-item disabled">
+			<a class ="page-link text-danger" href="/diary/diaryList.jsp?currentPage=1">처음페이지</a>
+				</li>
+			<li class="page-item disabled">
+				<a class ="page-link text-danger" href="/diary/diaryList.jsp?currentPage=<%=currentPage-1%>">이전페이지</a>
+		</li>
+	<% 		
+		}
+		if(currentPage < lastPage) {
+	%>
+		<li class="page-item">
+				<a class ="page-link text-danger" href="/diary/diaryList.jsp?currentPage=<%=currentPage+1%>">다음페이지</a>
+		</li>
+		<li class="page-item">
+			<a class ="page-link text-danger" href="/diary/diaryList.jsp?currentPage=<%=lastPage%>">마지막페이지</a>
+		</li>
+	<% 		
+		}
+	%>
 	
+		</ul>
+	</nav>
 	<a href="/diary/diaryList.jsp?=currentPage=<%=currentPage-1%>">이전</a>
 	<a href="/diary/diaryList.jsp?=currentPage=<%=currentPage+1%>">다음</a>
+	
+	
 	
 	<form method="get" action="/diary/diaryList.jsp" >
 	<div style="color: #FF5E00 ">
