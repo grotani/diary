@@ -2,12 +2,23 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="java.net.*"%>
 <%
+	// 로그인 인증 분기
+	String loginMember = (String)(session.getAttribute("loginMember"));
+	System.out.println(loginMember + "<=loginMember ");
+
+	if(loginMember == null) { // 로그아웃일때 
+		String errMsg = URLEncoder.encode("잘못된 접근 입니다. 로그인 먼저 해주세요", "utf-8");
+		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg);
+		return;
+	} 
+%>
+<%
 	//로그인 인증 분기 
 	// db이름 _ diary.login.my_session => 'OFF' 일때 => 리다이렉트 ("loginForm.jsp")로
-
+	/*
 	String sql1 = "select my_session mySession from login";
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
+	
+	
 	PreparedStatement stmt1 = null;
 	ResultSet rs1 = null;
 	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary","root","java1234");
@@ -25,10 +36,12 @@
 	
 		return; // 코드 진행을 끝내는 return문법 예)메서드 끝낼때 return문 사용
 	}
-			
+	*/		
 
 
 	String sql2= "SELECT lunch_date lunchDate, menu, update_date updatedate, create_date createdate FROM lunch WHERE lunch_date = CURDATE();";
+	Class.forName("org.mariadb.jdbc.Driver");
+	Connection conn = null;
 	PreparedStatement stmt2 = null;
 	ResultSet rs2 = null;
 	stmt2 = conn.prepareStatement(sql2);
@@ -73,7 +86,6 @@
 	%>
 	<h1>투표상세보기</h1>
 	<table class="table border">
-	
 			<tr>
 				<td>lunchDate</td>
 				<td><%=rs2.getString("lunchDate") %></td>
@@ -104,8 +116,8 @@
 		
 		<form method="post" action="/diary/checkLunchAction.jsp">
 			<div>
-			날짜 확인 : <input type="date" name="checkVote" value="<%=checkVote%>">
-			<span><%=msg %></span>
+				날짜 확인 : <input type="date" name="checkVote" value="<%=checkVote%>">
+				<span><%=msg %></span>
 			</div>
 			<div>
 			<button type="submit" class="btn btn-outline-warning">날짜가능 확인</button>
@@ -130,32 +142,24 @@
 				%>
 				</td>
 				</tr>
-			<tr>
-				<td>lunchDate </td>
-				<td>
-					<input type="date" name="lunchDate">
-				</td>
-			</tr>
+			
 			<tr>
 				<td>menu</td>
 				<td>
-					<select name="menu">
-						<option value="한식">한식</option>
-						<option value="중식">중식</option>
-						<option value="일식">일식</option>
-						<option value="양식">양식</option>
-						<option value="기타">기타</option>	
-					</select>
+					<input type="radio" name="menu" value="한식">한식
+					<input type="radio" name="menu" value="중식">중식
+					<input type="radio" name="menu" value="양식">양식
+					<input type="radio" name="menu" value="일식">일식
+					<input type="radio" name="menu" value="기타">기타
 				</td>
 			</tr>
 		</table>	
-			<button type="submit" class="btn btn-outline-warning">투표</button>
+			<button type="submit" class="btn btn-outline-warning" >투표</button>
 		</form>
 	<%		
 		}
 	%>	
 	
-
 	
 
 </body>

@@ -4,35 +4,28 @@
 
 <%
 	// 0.로그인 인증 분기 
-	// db이름 _ diary.login.my_session => 'on' 일때 => 리다이렉트 ("diary.jsp")로
+	String loginMember = (String)(session.getAttribute("loginMember"));
+	//login 로그아웃 상태 , null이 아니면 로그인 상태
+	System.out.println(loginMember + "<=loginMember ");
 	
-	String sql1 = "select my_session mySession from login";
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	PreparedStatement stmt1 = null;
-	ResultSet rs1 = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary","root","java1234");
-	stmt1 = conn.prepareStatement(sql1);
-	rs1 = stmt1.executeQuery();
+	// loginForm 페이지는 로그아웃 상태에서만 출력되는 페이지
+	if(loginMember != null) { 
+		response.sendRedirect("/diary/diary.jsp"); // 로그인이 되었을 때 
 	
-	String mySession = null;
-	if(rs1.next()) { 
-		mySession = rs1.getString("mySession");
-		
+		return; 
 	}
-	if(mySession.equals("ON")) { 
-		
-		response.sendRedirect("/diary/loginForm.jsp"); // 로그인이 되었을 때 
-	
-		return; // 코드 진행을 끝내는 return문법 예)메서드 끝낼때 return문 사용
-	}
-	
-		
-	// 1.요청값 분석
+	// loginMember가 null 이다 -> session 공간에  loginMember변수를 생성하고
+%>
+
+<% 		
+	// 1.요청값 분석 -> 로그인 성공유무 판단 -> session 에 loginMember변수 생성한다.
 	String memberId = request.getParameter("memberId");
 	String memberPw = request.getParameter("memberPw");
 	
 	String sql2 = "SELECT member_id memberId from member where member_id=? and member_pw=?";
+	Class.forName("org.mariadb.jdbc.Driver");
+	Connection conn = null;
+	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary","root","java1234");
 	PreparedStatement stmt2 = null;
 	ResultSet rs2 = null;
 	stmt2 = conn.prepareStatement(sql2);
@@ -41,17 +34,19 @@
 	rs2 = stmt2.executeQuery();
 	
 	
-	
-	
 	if(rs2.next()) { 
 		// 로그인 성공한다 
 		System.out.println("로그인 성공");
 		
-		// diary.login.my_session 값을 ON으로 변경하고 stmt3 랑 update 쿼리   
+	
+		/*
 		String sql3 = "update login set my_session='ON', on_date= Now() where my_session='OFF'";
 		PreparedStatement stmt3 = conn.prepareStatement(sql3);
 		int row = stmt3.executeUpdate();
 		System.out.println(row+"<== row");
+		*/
+		// 로그인 성공시 db값 설정에서 session 변수 셋팅으로 설정 세션에 ID만!! pw 넣으면 안됨 해킹 될 수 있음 
+		session.setAttribute("loginMember", rs2.getString("memberId"));
 		response.sendRedirect("/diary/diary.jsp");
 		
 	} else { 
@@ -61,9 +56,6 @@
 		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg);
 		
 	} 
-	
-	
-	
-	
+		
 	
 %>

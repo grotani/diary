@@ -2,9 +2,24 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="java.net.*"%>
 <%
+	//로그인 인증 분기
+	String loginMember = (String)(session.getAttribute("loginMember"));
+	System.out.println(loginMember + "<=loginMember ");
+
+	if(loginMember == null) { // 로그아웃일때 
+		String errMsg = URLEncoder.encode("잘못된 접근 입니다. 로그인 먼저 해주세요", "utf-8");
+		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg);
+		return;
+	}
+	
+%>
+
+<%
+
 	//로그인 인증 분기 
 	// db이름 _ diary.login.my_session => 'OFF' 일때 => 리다이렉트 ("loginForm.jsp")로
 	// Calendar 연도랑 월 받아오기 
+	/*
 	String sql1 = "select my_session mySession from login";
 	Class.forName("org.mariadb.jdbc.Driver");
 	Connection conn = null;

@@ -2,15 +2,30 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="java.net.*"%>
 <%
+	// 로그인 인증 분기
+	String loginMember = (String)(session.getAttribute("loginMember"));
+	System.out.println(loginMember + "<=loginMember ");
+
+	if(loginMember == null) { // 로그아웃일때 
+		String errMsg = URLEncoder.encode("잘못된 접근 입니다. 로그인 먼저 해주세요", "utf-8");
+		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg);
+		return;
+	}
+%>
+
+<%
+
 	// 로그인 인증 분기 
+	
+	
 	// db이름 _ diary.login.my_session => 'OFF' 일때 => 리다이렉트 ("loginForm.jsp")로
 	// Calendar 연도랑 월 받아오기 
-	String sql1 = "select my_session mySession from login";
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
+	/*String sql1 = "select my_session mySession from login";
+	
+	
 	PreparedStatement stmt1 = null;
 	ResultSet rs1 = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary","root","java1234");
+	
 	stmt1 = conn.prepareStatement(sql1);
 	rs1 = stmt1.executeQuery();
 	
@@ -25,13 +40,19 @@
 	
 		return; // 코드 진행을 끝내는 return문법 예)메서드 끝낼때 return문 사용
 	}
+	*/
 	
+%>
+
+<%	
 	String checkDate = request.getParameter("checkDate");
 			
 	String sql2 = "select diary_date diaryDate from diary where diary_date=?";
 	// 결과가 있으면 일기 입력 불가 > 동일한 날짜 일기 중복 작성 불가 
-	
+	Class.forName("org.mariadb.jdbc.Driver");
+	Connection conn = null;
 	PreparedStatement stmt2 =null;
+	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary","root","java1234");
 	ResultSet rs2 = null;
 	stmt2 = conn.prepareStatement(sql2);
 	stmt2.setString(1,checkDate );
@@ -43,8 +64,6 @@
 		 // 해당날짜 일기 기록 가능 
 		response.sendRedirect("/diary/addDiaryForm.jsp?checkDate="+checkDate+"&ck=T"); 
 	} 
-	
-	
-	
+		
 	
 %>

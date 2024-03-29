@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*"%>
+
 <%@ page import="java.net.*"%>
 <%
 
 	
-	// 0.로그인 인증 분기 
+	// 0.로그인 인증 분기  
 	// db이름 _ diary.login.my_session => 'on' 일때 => 리다이렉트 ("diary.jsp")로
-	
+	/* 이건 db 에서 세션 로그인할때 사용하는 값 sql사용 
 	String sql1 = "select my_session mySession from login";
 	Class.forName("org.mariadb.jdbc.Driver");
 	Connection conn = null;
@@ -15,8 +15,9 @@
 	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary","root","java1234");
 	stmt1 = conn.prepareStatement(sql1);
 	rs1 = stmt1.executeQuery();
-	
 	String mySession = null;
+	
+
 	if(rs1.next()) { 
 		mySession = rs1.getString("mySession");
 		
@@ -28,8 +29,22 @@
 		
 		return; // 코드 진행을 끝내는 return문법 예)메서드 끝낼때 return문 사용
 	}
-		
-		
+	*/	
+	
+	// 로그인(인증 분기) session 사용으로 변경하기 API를 사용 
+	// 로그인 성공시 세션에 loginMember 라는 변수를 만들고 값으로 로그인 아이디를 저장한다 
+	String loginMember = (String) (session.getAttribute("loginMember"));
+	// session.getAttribute() 변수는 찾는 변수가 없으면  null값을 반환한다
+	// null이면 로그아웃 상태 , null이 아니면 로그인 상태
+	System.out.println(loginMember + "<=loginMember ");
+	
+	// loginForm 페이지는 로그아웃 상태에서만 출력되는 페이지
+	if(loginMember != null) { 
+		response.sendRedirect("/diary/diary.jsp"); // 로그인이 되었을 때 
+	
+		return; 
+	}
+	
 	// 1.요청값 분석
 	String errMsg = request.getParameter("errMsg");
 	

@@ -1,7 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="java.net.*"%>
+<% 
+	//로그인 인증 분기
+	String loginMember = (String)(session.getAttribute("loginMember"));
+	System.out.println(loginMember + "<=loginMember ");
+
+	if(loginMember == null) { // 로그아웃일때 
+		String errMsg = URLEncoder.encode("잘못된 접근 입니다. 로그인 먼저 해주세요", "utf-8");
+		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg);
+		return;
+	}
+
+%>
+
+
+
 <%
+	/* DB로 로그인할때 
 	// 로그인 인증 분기 
 	// db이름 _ diary.login.my_session => 'OFF' 일때 => 리다이렉트 ("loginForm.jsp")로
 	String sql1 = "select my_session mySession from login";
@@ -24,6 +40,7 @@
 	
 		return; // 코드 진행을 끝내는 return문법 예)메서드 끝낼때 return문 사용
 	}
+	*/
 %>	
 
 <%
@@ -52,8 +69,10 @@
 		limit ?, ?
 	*/
 	String sql2 = "select diary_date diaryDate, title from diary where title like ? order by diary_date desc limit ?, ?";
+	Connection conn = null;
 	PreparedStatement stmt2 = null;
 	ResultSet rs2 = null;
+	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary","root","java1234");
 	stmt2 = conn.prepareStatement(sql2);
 	stmt2.setString(1, "%"+serchWord+"%");
 	stmt2.setInt(2, startRow);

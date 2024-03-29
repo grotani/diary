@@ -4,31 +4,18 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="java.net.*"%>
 <%
-	// 로그인 인증 분기 
-	// db이름 _ diary.login.my_session => 'OFF' 일때 => 리다이렉트 ("loginForm.jsp")로
-	// Calendar 연도랑 월 받아오기 
-	String sql1 = "select my_session mySession from login";
-	Class.forName("org.mariadb.jdbc.Driver");
-	Connection conn = null;
-	PreparedStatement stmt1 = null;
-	ResultSet rs1 = null;
-	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary","root","java1234");
-	stmt1 = conn.prepareStatement(sql1);
-	rs1 = stmt1.executeQuery();
-	
-	String mySession = null;
-	if(rs1.next()) { 
-		mySession = rs1.getString("mySession");
-		
-	}
-	if(mySession.equals("OFF")) { 
+	// 로그인 인증 분기
+	String loginMember = (String)(session.getAttribute("loginMember"));
+	System.out.println(loginMember + "<=loginMember ");
+
+	if(loginMember == null) { // 로그아웃일때 
 		String errMsg = URLEncoder.encode("잘못된 접근 입니다. 로그인 먼저 해주세요", "utf-8");
-		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg); // 로그인이 안되었을때 다시 로그인 폼 페이지로 이동합니다.
-	
-		return; // 코드 진행을 끝내는 return문법 예)메서드 끝낼때 return문 사용
+		response.sendRedirect("/diary/loginForm.jsp?errMsg="+errMsg);
+		return;
 	}
-	
-	
+%>
+
+<%	
 	// 달력 만들기 출력하고자 하는 달력의 년도랑 월 값 가져오기 
 	String targetYear = request.getParameter("targetYear");
 	String targetMonth = request.getParameter("targetMonth");
@@ -57,6 +44,9 @@
 	
 	// DB에서 tYear 와  tMonth  에 해당되는 diary목록 추출하기 
 	String sql2 = "select diary_date diaryDate, day(diary_date) day, feeling, left(title,5) title from diary where year(diary_date)=? and month(diary_date)=?";
+	Class.forName("org.mariadb.jdbc.Driver");
+	Connection conn = null;		
+	conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/diary","root","java1234");
 	PreparedStatement stmt2 = null;
 	ResultSet rs2 = null;
 	stmt2 = conn.prepareStatement(sql2);
